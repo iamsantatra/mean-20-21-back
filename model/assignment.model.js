@@ -1,18 +1,38 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 var aggregatePaginate = require("mongoose-aggregate-paginate-v2");
+const User = require("../model/user.model");
 
 let AssignmentSchema = Schema({
-    id: Number,
-    dateDeRendu: Date,
-    nom: String,
-    rendu: Boolean
+    idAssignment: Number,
+    dateDeRendu: {
+        type: Date,
+        required: true
+    },
+    nom: {
+        type: String,
+        required: true
+    },
+    rendu: Boolean,
+    note: Number,
+    remarques: String,
+    idMatiere: {
+        type: Number,
+        required: true
+    },
+    idEleve: {
+        type: Number,
+        required: true,
+        ref: 'User',
+        validate: {
+            validator: async function(value) {
+              const count = await User.countDocuments({ id: value, profil: 'Etudiant(e)' });
+              return count > 0;
+            },
+            message: "L'ID de l'élève est invalide ou ne correspond pas à un profil d'un élève."
+        }
+    }
 });
 
 AssignmentSchema.plugin(aggregatePaginate);
-// C'est à travers ce modèle Mongoose qu'on pourra faire le CRUD
-// le nom de la collection (par défaut assignments) sera au pluriel, 
-// soit assignments
-// Si on met un nom "proche", Mongoose choisira la collection
-// dont le nom est le plus proche
-module.exports = mongoose.model('assignments', AssignmentSchema);
+module.exports = mongoose.model('assignments', AssignmentSchema, 'assignments');

@@ -12,6 +12,7 @@ let MatiereSchema = Schema({
     image: String,
     idProf: {
         type: Number, 
+        required: true,
         ref: 'User',
         validate: {
             validator: async function(value) {
