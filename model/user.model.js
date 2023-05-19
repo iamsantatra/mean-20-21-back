@@ -14,12 +14,12 @@ const utilisateurSchema = mongoose.Schema({
   profil: {
     type: String,
     required: true,
-    enum: ['Etudiant', 'Administrateur'],
-    default: "Etudiant"
+    enum: ['Etudiant(e)', 'Professeur', 'Administrateur'],
+    default: "Etudiant(e)"
   },
   id: Number
 }
 );
 
 utilisateurSchema.plugin(AutoIncrement, { inc_field: "id" });
-module.exports = mongoose.model("User", utilisateurSchema)
+module.exports = mongoose.model("User", utilisateurSchema, "users")

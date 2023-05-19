@@ -10,7 +10,6 @@ let AssignmentSchema = Schema({
 });
 
 AssignmentSchema.plugin(aggregatePaginate);
-
 // C'est à travers ce modèle Mongoose qu'on pourra faire le CRUD
 // le nom de la collection (par défaut assignments) sera au pluriel, 
 // soit assignments

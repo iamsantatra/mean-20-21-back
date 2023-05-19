@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 async function register(req, res) {
     let hash = await bcrypt.hash(req.body.motDePasse, 10)
     try {
-      let userTest = await User.findOne({ "nom" : req.body.nom})
+      let userTest = await User.findOne({ "nom" : req.body.nom.trim()})
       if(userTest != undefined) {
         return res.status(409).json({
           message: "Utilisateur déjà enregistré",
@@ -13,7 +13,7 @@ async function register(req, res) {
         });
       }
       const user = new User({
-        nom: req.body.nom,
+        nom: req.body.nom.trim(),
         motDePasse: hash,
         image: req.body.image,
         profil: req.body.profil
@@ -25,8 +25,9 @@ async function register(req, res) {
         data: result
       });
     } catch(err) {
+      console.log(err)
         return res.status(500).json({
-          message: err
+          message: err.message
         })
     }
 }
@@ -34,7 +35,8 @@ async function register(req, res) {
 async function login(req, res) {
     console.log(req.body)
     let fetchedUser;
-    let user = await User.findOne({ nom: req.body.nom })
+    
+    let user = await User.findOne({ nom: trim(req.body.nom) })
     try {
         if (!user) {
             return res.status(401).json({
@@ -63,7 +65,7 @@ async function login(req, res) {
       })
     } catch(err) {
       return res.status(500).json({
-        message: err
+        message: err.message
       });
     };
 }

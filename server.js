@@ -7,6 +7,7 @@ let mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const db = require("./config/db.config")
 const userRoutes = require("./routes/user.routes")
+const matiereRoutes = require("./routes/matiere.routes")
 //mongoose.set('debug', true);
 
 // remplacer toute cette chaine par l'URI de connexion à votre propre base dans le cloud s
@@ -59,6 +60,9 @@ app.route(prefix + '/assignments/:id')
 app.route(prefix + '/users/register').post(userRoutes.register)
 app.route(prefix + '/users/login').post(userRoutes.login)
 
+app.route(prefix + '/matieres/:id').get(matiereRoutes.findById);
+app.route(prefix + '/matieres').post(matiereRoutes.add)
+  
 // On démarre le serveur
 app.listen(port, "0.0.0.0");
 console.log('Serveur démarré sur http://localhost:' + port);
