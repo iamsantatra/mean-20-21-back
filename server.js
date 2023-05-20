@@ -8,6 +8,8 @@ mongoose.Promise = global.Promise;
 const db = require("./config/config")
 const userRoutes = require("./routes/user.routes")
 const matiereRoutes = require("./routes/matiere.routes")
+const typeConn = require("./config/type.config");
+const authorize = require('./middleware/check-auth')
 //mongoose.set('debug', true);
 
 // remplacer toute cette chaine par l'URI de connexion à votre propre base dans le cloud s
@@ -47,21 +49,24 @@ let port = process.env.PORT || 8010;
 const prefix = '/api';
 
 app.route(prefix + '/assignments')
-  .get(assignment.getAssignments)
+  .get(authorize([typeConn.etudiant, typeConn.professeur, typeConn.administrateur]), assignment.getAssignments)
+  // .post(authorize([typeConn.etudiant, typeConn.professeur, typeConn.administrateur]), assignment.postAssignment)
   .post(assignment.postAssignment)
-  .put(assignment.updateAssignment);
+  .put(authorize([typeConn.professeur, typeConn.administrateur]), assignment.updateAssignment);
 
 app.route(prefix + '/assignments/:id')
-  .get(assignment.getAssignment)
-  .delete(assignment.deleteAssignment);
+  .get(authorize([typeConn.etudiant, typeConn.professeur, typeConn.administrateur]), assignment.getAssignment)
+  .delete(authorize([typeConn.professeur, typeConn.administrateur]), assignment.deleteAssignment);
   
 
 // app.use(prefix + "/users", userRoutes);
 app.route(prefix + '/users/register').post(userRoutes.register)
 app.route(prefix + '/users/login').post(userRoutes.login)
 
-app.route(prefix + '/matieres/:id').get(matiereRoutes.findById);
-app.route(prefix + '/matieres').post(matiereRoutes.add)
+app.route(prefix + '/matieres/:id')
+  .get(authorize([typeConn.etudiant, typeConn.professeur, typeConn.administrateur]), matiereRoutes.findById);
+app.route(prefix + '/matieres')
+  .post(authorize([typeConn.professeur, typeConn.administrateur]), matiereRoutes.add)
   
 // On démarre le serveur
 app.listen(port, "0.0.0.0");

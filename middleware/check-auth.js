@@ -10,15 +10,15 @@ module.exports =  (types = []) => {
         try {
             const token =  req.headers.authorization.split(" ")[1]
             const decodedToken =  jwt.verify(token, config.secret)
-            req.userData = { userId: decodedToken.userId, type: decodedToken.type, restaurant_id: decodedToken.restaurant_id };
+            req.userData = { userId: decodedToken.userId, profil: decodedToken.profil, nom: decodedToken.nom };
             console.log(decodedToken)
-            if (types.length && !types.includes(req.userData.type)) {
+            if (types.length && !types.includes(req.userData.profil)) {
                 res.status(401).json({message: "Acces non autorisé"})
             } else {
                 next()
             }
         } catch (error) {
-            res.status(401).json({message: "Acces non autorisé"})
+            res.status(500).json({message: error.message})
         }
     }
 }

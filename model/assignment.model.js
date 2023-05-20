@@ -2,6 +2,7 @@ let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 var aggregatePaginate = require("mongoose-aggregate-paginate-v2");
 const User = require("../model/user.model");
+const AutoIncrement = require("mongoose-sequence")(mongoose);
 
 let AssignmentSchema = Schema({
     idAssignment: Number,
@@ -35,4 +36,6 @@ let AssignmentSchema = Schema({
 });
 
 AssignmentSchema.plugin(aggregatePaginate);
+AssignmentSchema.plugin(AutoIncrement, { inc_field: "idAssignment" });
+
 module.exports = mongoose.model('assignments', AssignmentSchema, 'assignments');

@@ -78,7 +78,7 @@ function updateAssignment(req, res) {
             console.log(err);
             res.send(err)
         } else {
-          res.json({message: assignment.nom + 'updated'})
+          res.json({message: assignment.nom + ' updated'})
         }
 
       // console.log('updated ', assignment)
@@ -88,7 +88,7 @@ function updateAssignment(req, res) {
 
 // suppression d'un assignment (DELETE)
 function deleteAssignment(req, res) {
-
+    console.log(req.params.id)
     Assignment.findByIdAndRemove(req.params.id, (err, assignment) => {
         if (err) {
             res.send(err);

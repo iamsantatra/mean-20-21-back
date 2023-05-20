@@ -37,7 +37,7 @@ async function login(req, res) {
     console.log(req.body)
     let fetchedUser;
     
-    let user = await User.findOne({ nom: trim(req.body.nom) })
+    let user = await User.findOne({ nom: req.body.nom.trim() })
     try {
         if (!user) {
             return res.status(401).json({
