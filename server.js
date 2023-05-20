@@ -5,7 +5,7 @@ let assignment = require('./routes/assignments.routes');
 
 let mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-const db = require("./config/db.config")
+const db = require("./config/config")
 const userRoutes = require("./routes/user.routes")
 const matiereRoutes = require("./routes/matiere.routes")
 //mongoose.set('debug', true);
