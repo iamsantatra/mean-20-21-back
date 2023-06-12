@@ -14,7 +14,7 @@ const authorize = require('./middleware/check-auth')
 
 // remplacer toute cette chaine par l'URI de connexion à votre propre base dans le cloud s
 // const uri = 'mongodb+srv://mb:toto@cluster0.5e6cs7n.mongodb.net/assignments?retryWrites=true&w=majority';
-const uri = db.uri
+const uri = db.uriDev
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -39,9 +39,8 @@ app.use(function (req, res, next) {
   next();
 });
 
-// Pour les formulaires
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 let port = process.env.PORT || 8010;
 
