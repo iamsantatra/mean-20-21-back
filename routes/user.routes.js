@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const config = require("../config/config")
 
 async function register(req, res) {
+    // console.log(req.body)
     let hash = await bcrypt.hash(req.body.motDePasse, 10)
     try {
       let userTest = await User.findOne({ "nom" : req.body.nom.trim()})
