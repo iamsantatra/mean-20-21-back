@@ -35,4 +35,14 @@ async function findById(req, res) {
     });
 }
 
-module.exports = { add, findById }
+// function that list all matieres
+async function list(req, res) {
+    
+    let result = await Matiere.find()
+    return res.status(200).json({
+        message: "Liste des matières",
+        data: result
+    });
+}
+
+module.exports = { add, findById, list }

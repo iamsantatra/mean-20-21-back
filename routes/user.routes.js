@@ -72,4 +72,13 @@ async function login(req, res) {
     };
 }
 
-module.exports = { register, login }
+// function that list all users
+async function list(req, res) {
+    let result = await User.find()
+    return res.status(200).json({
+        message: "Liste des utilisateurs",
+        data: result
+    });
+}
+
+module.exports = { register, login, list }

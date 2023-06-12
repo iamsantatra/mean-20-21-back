@@ -14,6 +14,7 @@ const authorize = require('./middleware/check-auth')
 
 // remplacer toute cette chaine par l'URI de connexion à votre propre base dans le cloud s
 // const uri = 'mongodb+srv://mb:toto@cluster0.5e6cs7n.mongodb.net/assignments?retryWrites=true&w=majority';
+// const uri = db.uriDev
 const uri = db.uriDev
 const options = {
   useNewUrlParser: true,
@@ -61,11 +62,14 @@ app.route(prefix + '/assignments/:id')
 // app.use(prefix + "/users", userRoutes);
 app.route(prefix + '/users/register').post(userRoutes.register)
 app.route(prefix + '/users/login').post(userRoutes.login)
+app.route(prefix + '/users').get(userRoutes.list)
 
 app.route(prefix + '/matieres/:id')
   .get(authorize([typeConn.etudiant, typeConn.professeur, typeConn.administrateur]), matiereRoutes.findById);
 app.route(prefix + '/matieres')
   .post(authorize([typeConn.professeur, typeConn.administrateur]), matiereRoutes.add)
+app.route(prefix + '/matieres')
+  .get(authorize([typeConn.etudiant, typeConn.professeur, typeConn.administrateur]), matiereRoutes.list)  
   
 // On démarre le serveur
 app.listen(port, "0.0.0.0");
