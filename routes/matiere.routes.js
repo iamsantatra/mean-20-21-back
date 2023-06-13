@@ -45,4 +45,14 @@ async function list(req, res) {
     });
 }
 
+// get Matiere by id
+async function getMatiererById(req, res) {
+    let id = req.params.id;
+    let matiere = await Matiere.findById(id);
+    return res.status(200).json({
+        message: "Matière à partir de l'id: " + id,
+        data: matiere
+    });
+}
+
 module.exports = { add, findById, list }

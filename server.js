@@ -70,7 +70,7 @@ app.route(prefix + '/matieres')
   .post(authorize([typeConn.professeur, typeConn.administrateur]), matiereRoutes.add)
 app.route(prefix + '/matieres')
   .get(authorize([typeConn.etudiant, typeConn.professeur, typeConn.administrateur]), matiereRoutes.list)  
-  
+
 // On démarre le serveur
 app.listen(port, "0.0.0.0");
 console.log('Serveur démarré sur http://localhost:' + port);
