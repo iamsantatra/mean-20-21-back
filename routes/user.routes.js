@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const User = require("../model/user.model");
+const Matiere = require("../model/matiere.model");
 const jwt = require("jsonwebtoken");
 const config = require("../config/config")
 
@@ -91,4 +92,16 @@ async function findById(req, res) {
   });
 }
 
-module.exports = { register, login, list, findById }
+//getUserByIdMatiere
+async function getProfByIdMatiere(req, res) {
+  let id = req.params.id;
+  
+  let matiere = await Matiere.findOne({idMatiere: id});
+  let user = await User.findOne({id: matiere.idProf});
+  return res.status(200).json({
+      message: "Le prof à partir de l'id de la matière: " + id,
+      data: user
+  });
+}
+
+module.exports = { register, login, list, findById, getProfByIdMatiere }

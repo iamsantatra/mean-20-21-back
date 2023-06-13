@@ -27,8 +27,8 @@ async function add(req, res) {
 async function findById(req, res) {
 
     let id = req.params.id;
-
     let result = await Matiere.findOne({idMatiere: id})
+
     return res.status(200).json({
         message: "La matière à partir id:" + id,
         data: result
@@ -42,16 +42,6 @@ async function list(req, res) {
     return res.status(200).json({
         message: "Liste des matières",
         data: result
-    });
-}
-
-// get Matiere by id
-async function getMatiererById(req, res) {
-    let id = req.params.id;
-    let matiere = await Matiere.findById(id);
-    return res.status(200).json({
-        message: "Matière à partir de l'id: " + id,
-        data: matiere
     });
 }
 

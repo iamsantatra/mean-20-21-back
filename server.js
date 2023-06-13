@@ -63,6 +63,7 @@ app.route(prefix + '/assignments/:id')
 app.route(prefix + '/users/register').post(userRoutes.register)
 app.route(prefix + '/users/login').post(userRoutes.login)
 app.route(prefix + '/users').get(userRoutes.list)
+app.route(prefix + '/users/prof/:id').get(userRoutes.getProfByIdMatiere)
 app.route(prefix + '/users/:id')
   .get(authorize([typeConn.etudiant, typeConn.professeur, typeConn.administrateur]), userRoutes.findById);
 

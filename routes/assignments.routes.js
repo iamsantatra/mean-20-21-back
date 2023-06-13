@@ -13,7 +13,7 @@ function getAssignmentsSansPagination(req, res){
 
 function getAssignments(req, res) {
     var aggregateQuery = Assignment.aggregate();
-    
+    aggregateQuery.sort({ idAssignment: -1 });
     Assignment.aggregatePaginate(aggregateQuery,
       {
         page: parseInt(req.query.page) || 1,
@@ -32,7 +32,7 @@ function getAssignments(req, res) {
 function getAssignment(req, res){
     let assignmentId = req.params.id;
 
-    Assignment.findOne({id: assignmentId}, (err, assignment) =>{
+    Assignment.findOne({idAssignment: assignmentId}, (err, assignment) =>{
         if(err){res.send(err)}
         res.json(assignment);
     })
@@ -45,7 +45,7 @@ async function postAssignment(req, res) {
     // assignment.id = req.body.id;
     assignment.nom = req.body.nom;
     assignment.dateDeRendu = req.body.dateDeRendu;
-    // assignment.rendu = req.body.rendu;
+    assignment.rendu = req.body.rendu;
     assignment.idMatiere = req.body.idMatiere;
     assignment.idEleve = req.body.idEleve;
 
@@ -55,7 +55,6 @@ async function postAssignment(req, res) {
     try {
         
         let result = await assignment.save()
-
         return res.status(201).json({
             message: "L'assignment a été enregistré avec succès !",
             data: result
