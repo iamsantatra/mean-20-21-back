@@ -21,8 +21,7 @@ let MatiereSchema = Schema({
             },
             message: "L'ID du professeur est invalide ou ne correspond pas à un profil de professeur existant."
         }
-    },
-    id: Number
+    }
 });
 
 MatiereSchema.plugin(AutoIncrement, { inc_field: "idMatiere" });

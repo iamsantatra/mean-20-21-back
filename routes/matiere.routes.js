@@ -28,7 +28,7 @@ async function findById(req, res) {
 
     let id = req.params.id;
 
-    let result = await Matiere.findOne({id: id})
+    let result = await Matiere.findOne({idMatiere: id})
     return res.status(200).json({
         message: "La matière à partir id:" + id,
         data: result

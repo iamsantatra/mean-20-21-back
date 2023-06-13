@@ -81,4 +81,14 @@ async function list(req, res) {
     });
 }
 
-module.exports = { register, login, list }
+async function findById(req, res) {
+  let id = req.params.id;
+
+  let result = await User.findOne({id: id})
+  return res.status(200).json({
+      message: "L'user à partir id:" + id,
+      data: result
+  });
+}
+
+module.exports = { register, login, list, findById }
