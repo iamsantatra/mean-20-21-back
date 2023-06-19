@@ -22,8 +22,13 @@ async function register(req, res) {
         profil: req.body.profil
       })
       let result = await user.save()
-
+      const token = jwt.sign(
+        { userId: result.id, profil: result.profil, nom: result.nom },
+        config.secret,
+        { expiresIn: "24h" }
+      );
       return res.status(201).json({
+        access_token: token,
         message: "L'utilisateur a été enregistré avec succès !",
         data: result
       });
