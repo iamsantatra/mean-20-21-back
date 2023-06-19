@@ -30,7 +30,8 @@ async function register(req, res) {
       return res.status(201).json({
         access_token: token,
         message: "L'utilisateur a été enregistré avec succès !",
-        data: result
+        data: result,
+        expiresIn: 86400
       });
     } catch(err) {
       console.log(err)
