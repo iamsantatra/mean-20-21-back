@@ -13,7 +13,7 @@
 - Veuillez cloner le dépôt dans votre machine : `git clone https://github.com/iamsantatra/mean-20-21-back.git`
 - Utilisez la commande `cd` pour vous rendre dans le répertoire racine de votre projet: `cd mean-20-21-back`
 - Lancez les commandes:
-  - pour télécharger les dépendances: `npm install` 
+  - pour installer les dépendances: `npm install` 
   - pour démarrer : `node server.js`
 
 ## Nos contributions
