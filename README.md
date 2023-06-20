@@ -1,5 +1,8 @@
 # Gestion des devoirs MBDS (back-end MEAN)
 
+## Lien du Web Service
+`https://assignment-20-21-api.onrender.com/`
+
 ## Membres du groupe
 
 - RAJOHNSON Fitahiana Santatry Ny Aina  - 20
